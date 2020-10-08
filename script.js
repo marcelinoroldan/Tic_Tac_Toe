@@ -8,12 +8,17 @@ const winningCombinations = [['0','1','2'],['3','4','5'],['6','7','8'],['0','3',
 let choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
 let choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
 
+let gameWinnerTie = "";
+
+let totalSelectionsMade = 0;
+
 const getNewGameButton = document.querySelector('.gameRestartButton');
+let gameStatus = document.querySelector('.gameStatus');
 
 function startNewGame() {
     // let getForm = document.querySelector('.gridForm');
     // getForm.reload();
-    let gameStatus = document.querySelector('.gameStatus');
+    // let gameStatus = document.querySelector('.gameStatus');
     gameStatus.innerHTML = 'Game has Started, make your first selection!';
 }
 
@@ -32,6 +37,25 @@ let currentPlayer = null;
         console.log(`playerX array - ${choicesMadeByX}`)
         console.log(`playerO array - ${choicesMadeByO}`)
     }
+
+
+    function determineWinnerTieNextTurn(){
+
+
+        if (totalSelectionsMade === 9 && gameWinnerTie === "") {
+            gameWinnerTie = 'The game has eneded in a TIE!';
+        }
+
+        if (gameWinnerTie !== "") {
+            gameStatus.innerHTML = gameWinnerTie
+        }else if (currentPlayer == 'X') {
+            gameStatus.innerHTML = 'Your turn O!';
+        }else {
+            gameStatus.innerHTML = 'Your turn X!';
+        }
+
+    };
+
 
     function validationProcess(player) {
         if (player == "X") {
@@ -70,6 +94,7 @@ let currentPlayer = null;
             console.log('going to check counter')
            if (matchCounter == 3) {
                console.log('counter has 3')
+               gameWinnerTie = `The game winner is ${currentPlayer}`;
                alert('we have a winner!')
                matchCounter = 0;
            } else {
@@ -116,15 +141,18 @@ let currentPlayer = null;
             console.log('going to check counter')
            if (matchCounter == 3) {
                console.log('counter has 3')
+               gameWinnerTie = `The game winner is ${currentPlayer}`;
                alert('we have a winner!')
                matchCounter = 0;
            } else {
                console.log('counter has less than 3')
                console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
                matchCounter = 0;
+
            }
         }
         console.log(`match counter for X = ${matchCounter}`)
+        
     }
     }    
 
@@ -169,10 +197,13 @@ if (boxNum == '7') {
 if (boxNum == '8') {
   getBox8.innerHTML = currentPlayer;
 }
+ totalSelectionsMade = totalSelectionsMade + 1
 
  updateScore(currentPlayer, boxNum);
 
  validationProcess(currentPlayer);
+
+ determineWinnerTieNextTurn();
 
 };
 
