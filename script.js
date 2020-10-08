@@ -19,7 +19,21 @@ function startNewGame() {
     // let getForm = document.querySelector('.gridForm');
     // getForm.reload();
     // let gameStatus = document.querySelector('.gameStatus');
-    gameStatus.innerHTML = 'Game has Started, make your first selection!';
+     choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
+     choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
+     totalSelectionsMade = 0;
+     gameWinnerTie = "";
+     getBox0.innerHTML = "";
+     getBox1.innerHTML = "";
+     getBox2.innerHTML = "";
+     getBox3.innerHTML = "";
+     getBox4.innerHTML = "";
+     getBox5.innerHTML = "";
+     getBox6.innerHTML = "";
+     getBox7.innerHTML = "";
+     getBox8.innerHTML = "";
+     addListeners()
+    gameStatus.innerHTML = 'New game has Started, make your first selection!';
 }
 
 getNewGameButton.addEventListener('click', startNewGame);
@@ -222,6 +236,7 @@ const getBox8 = document.querySelector('#box8');
 // *** {once: true} allows us to only have the click event happen one time
 // *** and then it will not trigger again.  ONly triggers once.
 
+function addListeners() {
 getBox0.addEventListener('click', (event) => {
         event.preventDefault();
         processSelection('0');
@@ -266,6 +281,6 @@ getBox8.addEventListener('click', (event) => {
         event.preventDefault();
         processSelection('8');
     },{once: true});
+}
 
-
-
+addListeners();
