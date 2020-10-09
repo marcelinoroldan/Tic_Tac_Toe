@@ -1,25 +1,36 @@
 console.log("JS script working!");
 
+// *** counter to see how many numbers in a combo a player matchs for a win
 let matchCounter = 0;
-
 
 const winningCombinations = [['0','1','2'],['3','4','5'],['6','7','8'],['0','3','6'],['1','4','7'],['2','5','8'],['0','4','8'],['2','4','6']];
 
+// Holds player selections as the game is played to validate against the combos above
 let choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
 let choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
 
+// *** variable to be populated for winner information and if a tie
 let gameWinnerTie = "";
 
+// *** tracks if all board selections have been made - used to determine if a tie
 let totalSelectionsMade = 0;
 
 let firstSelection = true;
 
 let currentPlayer = null;
 
+let playerXWins = 0;
+let playerOWins = 0;
+let playerTies  = 0;
+
+// *** display fields on game board for total player wins
+const getPlayerXWinsDisplay = document.querySelector('.playerX');
+const getPlayerOWinsDisplay = document.querySelector('.playerO');
+
 const getNewGameButton = document.querySelector('.gameRestartButton');
+
 let gameStatus = document.querySelector('.gameStatus');
 let gameGrid = document.querySelector('.grid');
-
 let boxStyleDivs = document.querySelectorAll('.boxStyle');
 
 function removeListeners() {
@@ -28,10 +39,8 @@ function removeListeners() {
     })
 }
 
+//  *** Game reinitializer for start of a new game
 function startNewGame() {
-    // let getForm = document.querySelector('.gridForm');
-    // getForm.reload();
-    // let gameStatus = document.querySelector('.gameStatus');
      choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
      choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
      totalSelectionsMade = 0;
@@ -67,15 +76,19 @@ getNewGameButton.addEventListener('click', startNewGame);
 
 
     function determineWinnerTieNextTurn(){
-
-
         if (totalSelectionsMade === 9 && gameWinnerTie === "") {
             gameWinnerTie = 'The game has eneded in a TIE!';
+            playerTies++
+            // getPlayerXWinsDisplay.innerHTML = `Number of wins for Player X = ${playerXWins}`;
+            // getPlayerOWinsDisplay.innerHTML = `Number of wins for Player O = ${playerOWins}`;
             removeListeners()
+            
         }
 
         if (gameWinnerTie !== "") {
             gameStatus.innerHTML = gameWinnerTie;
+            // getPlayerXWinsDisplay.innerHTML = '1';
+            // getPlayerOWinsDisplay.innerHTML = (`Number of wins for Player O = ${playerOWins}`);
             removeListeners()
 
         }else if (currentPlayer == 'X') {
@@ -83,105 +96,110 @@ getNewGameButton.addEventListener('click', startNewGame);
         }else {
             gameStatus.innerHTML = 'Your turn X!';
         }
-
+        console.log(`playerX wins = ${playerXWins}`);
+        console.log(`playerO wins = ${playerOWins}`);
+        console.log(`player Ties = ${playerTies}`);
     };
 
 
     function validationProcess(player) {
+        console.log(`player is ${player}`)
         if (player == "X") {
         // console.log(`winning combos length = ${winningCombinations.length}`)
         // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
-            console.log('in first loop')
+            // console.log('in first loop for X')
             for (j = 0; j < choicesMadeByX.length; j++) {
-                console.log('in second loop loop')
-                console.log(`i = ${i}`)
-                console.log(`j = ${j}`)
+                // console.log('in second loop loop')
+                // console.log(`i = ${i}`)
+                // console.log(`j = ${j}`)
                 // console.log(`winning combo value ${winningCombinations[i][0]}`)
                 // console.log(`winning combo value ${winningCombinations[i][1]}`)
                 // console.log(`winning combo value ${winningCombinations[i][2]}`)
                 // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                 if (winningCombinations[i][0] == choicesMadeByX[j]) {
-                    console.log('in second loop passed first check')
-                    console.log(`winning combo value ${winningCombinations[i][0]}`)
-                    console.log(`winning combo X has ${choicesMadeByX[j]}`)
+                    // console.log('in second loop passed first check')
+                    // console.log(`winning combo value ${winningCombinations[i][0]}`)
+                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if (winningCombinations[i][1] == choicesMadeByX[j]) {
-                    console.log('in second loop passed second check')
-                    console.log(`winning combo value ${winningCombinations[i][1]}`)
-                    console.log(`winning combo X has ${choicesMadeByX[j]}`)
+                    // console.log('in second loop passed second check')
+                    // console.log(`winning combo value ${winningCombinations[i][1]}`)
+                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if(winningCombinations[i][2] == choicesMadeByX[j]) {
-                    console.log('in second loop passed third check')
-                    console.log(`winning combo value ${winningCombinations[i][2]}`)
-                    console.log(`winning combo X has ${choicesMadeByX[j]}`)
+                    // console.log('in second loop passed third check')
+                    // console.log(`winning combo value ${winningCombinations[i][2]}`)
+                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
 
             }
-            console.log('going to check counter')
+            // console.log('going to check counter')
            if (matchCounter == 3) {
-               console.log('counter has 3')
+            //    console.log('counter has 3')
                gameWinnerTie = `The game winner is ${currentPlayer}`;
+               playerXWins++ 
             //    alert('we have a winner!')
                matchCounter = 0;
            } else {
-               console.log('counter has less than 3')
-               console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
+            //    console.log('counter has less than 3')
+            //    console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
                matchCounter = 0;
            }
         }
-        console.log(`match counter for X = ${matchCounter}`)
+        // console.log(`match counter for X = ${matchCounter}`)
     }
         if (player == "O") {
         // console.log(`winning combos length = ${winningCombinations.length}`)
         // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
-            console.log('in first loop')
+            // console.log('in first loop O')
             for (j = 0; j < choicesMadeByO.length; j++) {
-                console.log('in second loop loop')
-                console.log(`i = ${i}`)
-                console.log(`j = ${j}`)
+                // console.log('in second loop loop')
+                // console.log(`i = ${i}`)
+                // console.log(`j = ${j}`)
                 // console.log(`winning combo value ${winningCombinations[i][0]}`)
                 // console.log(`winning combo value ${winningCombinations[i][1]}`)
                 // console.log(`winning combo value ${winningCombinations[i][2]}`)
                 // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                 if (winningCombinations[i][0] == choicesMadeByO[j]) {
-                    console.log('in second loop passed first check')
-                    console.log(`winning combo value ${winningCombinations[i][0]}`)
-                    console.log(`winning combo X has ${choicesMadeByO[j]}`)
+                    // console.log('in second loop passed first check')
+                    // console.log(`winning combo value ${winningCombinations[i][0]}`)
+                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if (winningCombinations[i][1] == choicesMadeByO[j]) {
-                    console.log('in second loop passed second check')
-                    console.log(`winning combo value ${winningCombinations[i][1]}`)
-                    console.log(`winning combo X has ${choicesMadeByO[j]}`)
+                    // console.log('in second loop passed second check')
+                    // console.log(`winning combo value ${winningCombinations[i][1]}`)
+                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if(winningCombinations[i][2] == choicesMadeByO[j]) {
-                    console.log('in second loop passed third check')
-                    console.log(`winning combo value ${winningCombinations[i][2]}`)
-                    console.log(`winning combo X has ${choicesMadeByO[j]}`)
+                    // console.log('in second loop passed third check')
+                    // console.log(`winning combo value ${winningCombinations[i][2]}`)
+                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
 
             }
-            console.log('going to check counter')
+            // console.log('going to check counter')
            if (matchCounter == 3) {
-               console.log('counter has 3')
+            //    console.log('counter has 3')
                gameWinnerTie = `The game winner is ${currentPlayer}`;
+               playerOWins++
             //    alert('we have a winner!')
                matchCounter = 0;
            } else {
-               console.log('counter has less than 3')
-               console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
+            //    console.log('counter has less than 3')
+            //    console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
                matchCounter = 0;
 
            }
         }
-        console.log(`match counter for X = ${matchCounter}`)
+        // console.log(`match counter for X = ${matchCounter}`)
         
     }
     }    
