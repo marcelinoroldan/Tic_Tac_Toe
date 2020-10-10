@@ -23,11 +23,17 @@ let playerXWins = 0;
 let playerOWins = 0;
 let playerTies  = 0;
 
+let boardUnlock = 0;
+
 // *** display fields on game board for total player wins
 const getPlayerXWinsDisplay = document.querySelector('.playerX');
 const getPlayerOWinsDisplay = document.querySelector('.playerO');
 
+
 const getNewGameButton = document.querySelector('.gameRestartButton');
+
+getNewGameButton.disabled = true;
+
 
 let gameStatus = document.querySelector('.gameStatus');
 let gameGrid = document.querySelector('.grid');
@@ -48,6 +54,13 @@ function startNewGame() {
      gameWinnerTie = "";
      firstSelection = true;
      currentPlayer = null;
+    //  player1Name = "";
+    //  player2Name = "";
+    //  boardUnlock = 0;
+    //  getPlayer1Input.hidden = false;
+    //  getPlayer1Info.hidden = false;
+    //  getPlayer2Input.hidden = false;
+    //  getPlayer2Info.hidden = false;
      getBox0.innerHTML = "";
      getBox1.innerHTML = "";
      getBox2.innerHTML = "";
@@ -59,13 +72,51 @@ function startNewGame() {
      getBox8.innerHTML = "";
      removeListeners()
      addListeners()
-    gameStatus.innerHTML = 'New game has Started, make your first selection!';
+    //  addPlayerNameListeners()
+    gameStatus.innerHTML = `New game - let's go!`;
 };
+function startNewGameAndPlayers() {
+     choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
+     choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
+     totalSelectionsMade = 0;
+     matchCounter = 0;
+     gameWinnerTie = "";
+     firstSelection = true;
+     currentPlayer = null;
+     player1Name = "";
+     player2Name = "";
+     boardUnlock = 0;
+     playerXWins = 0;
+     playerOWins = 0;
+     getPlayer1Label.innerHTML = 'Player1'
+     getPlayer2Label.innerHTML = 'Player2'
+     getPlayer1Input.hidden = false;
+     getPlayer1Info.hidden = false;
+     getPlayer2Input.hidden = false;
+     getPlayer2Info.hidden = false;
+     getNewGameButton.disabled = true;
+     getBox0.innerHTML = "";
+     getBox1.innerHTML = "";
+     getBox2.innerHTML = "";
+     getBox3.innerHTML = "";
+     getBox4.innerHTML = "";
+     getBox5.innerHTML = "";
+     getBox6.innerHTML = "";
+     getBox7.innerHTML = "";
+     getBox8.innerHTML = "";
+     removeListeners()
+    //  addListeners()
+     addPlayerNameListeners()
+    gameStatus.innerHTML = 'New game, add players to start!';
+};
+
+const getNewGameAndPlayersButton = document.querySelector(".gameRestartNewPlayersButton");
+getNewGameAndPlayersButton.addEventListener('click', startNewGameAndPlayers);
 
 getNewGameButton.addEventListener('click', startNewGame);
 
     function updateScore(currentPlayer, selection) {
-        if (currentPlayer == 'X') {
+        if (currentPlayer == player1Name) {
             choicesMadeByX[selection] = selection; 
         }else {choicesMadeByO[selection] = selection; 
 
@@ -91,10 +142,10 @@ getNewGameButton.addEventListener('click', startNewGame);
             // getPlayerOWinsDisplay.innerHTML = (`Number of wins for Player O = ${playerOWins}`);
             removeListeners()
 
-        }else if (currentPlayer == 'X') {
-            gameStatus.innerHTML = 'Your turn O!';
+        }else if (currentPlayer == player1Name) {
+            gameStatus.innerHTML = `Your turn ${player2Name}`;
         }else {
-            gameStatus.innerHTML = 'Your turn X!';
+            gameStatus.innerHTML = `Your turn ${player1Name}`;
         }
         console.log(`playerX wins = ${playerXWins}`);
         console.log(`playerO wins = ${playerOWins}`);
@@ -104,7 +155,7 @@ getNewGameButton.addEventListener('click', startNewGame);
 
     function validationProcess(player) {
         console.log(`player is ${player}`)
-        if (player == "X") {
+        if (player == player1Name) {
         // console.log(`winning combos length = ${winningCombinations.length}`)
         // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
@@ -140,7 +191,7 @@ getNewGameButton.addEventListener('click', startNewGame);
             // console.log('going to check counter')
            if (matchCounter == 3) {
             //    console.log('counter has 3')
-               gameWinnerTie = `The game winner is ${currentPlayer}`;
+               gameWinnerTie = `The game winner is ${currentPlayer}!!!!!`;
                playerXWins++ 
             //    alert('we have a winner!')
                matchCounter = 0;
@@ -152,7 +203,7 @@ getNewGameButton.addEventListener('click', startNewGame);
         }
         // console.log(`match counter for X = ${matchCounter}`)
     }
-        if (player == "O") {
+        if (player == player2Name) {
         // console.log(`winning combos length = ${winningCombinations.length}`)
         // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
@@ -188,7 +239,7 @@ getNewGameButton.addEventListener('click', startNewGame);
             // console.log('going to check counter')
            if (matchCounter == 3) {
             //    console.log('counter has 3')
-               gameWinnerTie = `The game winner is ${currentPlayer}`;
+               gameWinnerTie = `The game winner is ${currentPlayer}!!!!!`;
                playerOWins++
             //    alert('we have a winner!')
                matchCounter = 0;
@@ -210,12 +261,14 @@ getNewGameButton.addEventListener('click', startNewGame);
 function processSelection(boxNum) {
 
     if (firstSelection) { 
-    currentPlayer = 'X';
+    // currentPlayer = 'X';
+    currentPlayer = player1Name;
     firstSelection = false;
-  } else if (currentPlayer == 'X') {
-    currentPlayer = 'O';
+//   } else if (currentPlayer == 'X') {
+  } else if (currentPlayer == player1Name) {
+    currentPlayer = player2Name;
   } else {
-    currentPlayer = 'X';
+    currentPlayer = player1Name;
   }
      
 if (boxNum == '0') {
@@ -273,8 +326,10 @@ function boxCallBack() {
     let id = this.id.substring(3);
     // console.log(id.substring(3));
     // console.log(id).substring(3,1));
-processSelection(id);
+    processSelection(id);
 } 
+
+
 
 function addListeners() {
 getBox0.addEventListener('click', boxCallBack,{once: true});
@@ -299,4 +354,128 @@ getBox7.addEventListener('click', boxCallBack,{once: true});
 getBox8.addEventListener('click', boxCallBack,{once: true});
 } 
 
-addListeners();
+
+// addListeners();
+
+let player1Name = "";
+let player2Name = "";
+
+const getPlayer1Input = document.querySelector('#player1Submit');
+const getPlayer2Input = document.querySelector('#player2Submit');
+
+const getPlayer1Info = document.querySelector('#player1');
+const getPlayer2Info = document.querySelector('#player2');
+
+const getPlayer1Label = document.querySelector('#player1Label');
+const getPlayer2Label = document.querySelector('#player2Label');
+
+function checkBoardUnlock() {
+    if (boardUnlock == 2) {
+        addListeners();
+        getNewGameButton.disabled = false;
+    }
+};
+
+function processPlayerName(id, playerValue) {
+    let playerId = id
+    let idValue  = playerValue
+    console.log(`Player ID is ${playerId}`)
+    console.log(`Player Value is ${idValue}`)
+}
+
+// **** New player listeners
+
+function playerListeners() {
+
+    let id = this.id
+    console.log(`player id is ${id}`)
+
+    if (id == 'player1Submit') {
+    // const getPlayer1Info = document.querySelector('#player1');
+    console.log(`Player 1 value is ${getPlayer1Info.value}`)
+    if (getPlayer1Info.value == "") {
+        // alert('Player name needs to be input before you can add player');
+        // console.log('Player name needs to be input before you can add player');
+        getPlayer1Label.innerHTML = 'Player name needs to be input we start';
+    }else {
+    player1Name = getPlayer1Info.value;
+    getPlayer1Info.value = "";
+    getPlayer1Input.hidden = true;
+    getPlayer1Info.hidden = true;
+    getPlayer1Label.innerHTML = `Welcome to the game ${player1Name}`
+    boardUnlock++ 
+    checkBoardUnlock();
+    console.log(`Player1 is ${player1Name}`);
+        }}
+    
+    if (id == 'player2Submit') { 
+    // const getPlayer2Info = document.querySelector('#player2');
+    console.log(`Player 2 value is ${getPlayer2Info.value}`)
+    if (getPlayer2Info.value == "") {
+        // alert('Player name needs to be input before you can add player');
+        // console.log('Player name needs to be input before you can add player');
+        getPlayer2Label.innerHTML = 'Player name needs to be input we start';
+    }else {
+    player2Name = getPlayer2Info.value;
+    getPlayer2Info.value = "";
+    getPlayer2Input.hidden = true;
+    getPlayer2Info.hidden = true;
+    getPlayer2Label.innerHTML = `Welcome to the game ${player2Name}`
+    boardUnlock++
+    checkBoardUnlock();
+    console.log(`Player2 is ${player2Name}`);
+    }
+    };
+    console.log(`unlock board count is ${boardUnlock}`);
+};
+
+function addPlayerNameListeners() {
+getPlayer1Input.addEventListener('click', playerListeners); 
+getPlayer2Input.addEventListener('click', playerListeners); 
+};
+
+// **** New player listeners - previous is below
+   
+// function addPlayerNameListeners() {
+// getPlayer1Input.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     // const getPlayer1Info = document.querySelector('#player1');
+//     console.log(`Player 1 value is ${getPlayer1Info.value}`)
+//     if (getPlayer1Info.value == "") {
+//         // alert('Player name needs to be input before you can add player');
+//         // console.log('Player name needs to be input before you can add player');
+//         getPlayer1Label.innerHTML = 'Player name needs to be input we start';
+//     }else {
+//     player1Name = getPlayer1Info.value;
+//     getPlayer1Info.value = "";
+//     getPlayer1Input.hidden = true;
+//     getPlayer1Info.hidden = true;
+//     getPlayer1Label.innerHTML = `Welcome to the game ${player1Name}`
+//     boardUnlock++ 
+//     checkBoardUnlock();
+//     console.log(`Player1 is ${player1Name}`);
+//     }
+//     });
+
+// getPlayer2Input.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     // const getPlayer2Info = document.querySelector('#player2');
+//     console.log(`Player 2 value is ${getPlayer2Info.value}`)
+//     if (getPlayer2Info.value == "") {
+//         // alert('Player name needs to be input before you can add player');
+//         // console.log('Player name needs to be input before you can add player');
+//         getPlayer2Label.innerHTML = 'Player name needs to be input we start';
+//     }else {
+//     player2Name = getPlayer2Info.value;
+//     getPlayer2Info.value = "";
+//     getPlayer2Input.hidden = true;
+//     getPlayer2Info.hidden = true;
+//     getPlayer2Label.innerHTML = `Welcome to the game ${player2Name}`
+//     boardUnlock++
+//     checkBoardUnlock();
+//     console.log(`Player2 is ${player2Name}`);
+//     }
+//     });
+// };
+
+addPlayerNameListeners();
