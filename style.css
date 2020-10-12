@@ -1,10 +1,10 @@
 
 body {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
-    background-color: hotpink;
+    background-color: rgb(212, 174, 193);
     /* background-image: url('https://i.pinimg.com/originals/17/a6/9b/17a69b73e984d5f834d54fa793ff45d7.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -12,34 +12,37 @@ body {
     /* background-color: hotpink; */
     
 }
-/* 
-h1, h2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-} */
 
  
 h1 {
     margin-top: 50px;
+    text-align: center;
 } 
 
  
 h2 {
     margin-top: 0px;
+    text-align: center;
 }
  
-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 600px;
-    /* border: 2px solid black; */
+ 
+h4 {
+  color: purple;
 
 }
+ 
+#statsDiv {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  align-items: center;
+  /* background-color: hotpink; */
+
+}
+ 
+/* #player1Div, #player2Div {
+
+} */
 
 .gameRestartButton, .gameRestartNewPlayersButton {
     line-height: 20px;
@@ -52,25 +55,30 @@ section {
     border: 2px solid black;
 
 }
+#player1Submit, #player1, #player2Submit, #player2 {
+    /* line-height: 20px; */
+    /* width: 100px; */
+    /* font-size: 12px; */
+    padding: 5px;
+    margin: 2px;
+    border-radius: 10px;
+    /* background-color: gray; */
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
 .grid {
-    display: grid;
+    border: 5px solid black;
+    /* display: grid;
     grid-gap: 5px;
-    /* grid-template-columns: auto auto auto; */
     grid-template-columns: repeat(3, 1fr);
     width: 500px;
     max-width: 500px;
     height: 500px;
     max-height: 500px;
-    margin: 50px;
+    margin: 50px; */
   }
-  
-  div {
-    line-height: 30px;
-    text-align: center;
-    padding: 10px;
-    border: 4px solid black;
-    background-color: #ccc;
-}
+
 
 /* section {
     display: flex;
@@ -79,18 +87,44 @@ section {
     align-items: center;
 } */
 
-  .boxStyle {
-    display: flex;
+  .gameGrid {
+    /* display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-      /* text-align: center; */
-      /* align-content: center; */
-      /* vertical-align: middle; */
+    justify-content: space-around;
+    align-items: center; */
+    width: 700px;
+    border: 2px solid black;
   }
-/*   
-  section {
-    text-align: center;  
-    padding: 10px;
+.gameRestartButton, .gameRestartNewPlayersButton {
+  background-color: #eeeeee;
+}
+#statsDiv {
+  /* background-color: lightgray; */
+  width: 650px;
+}
 
-  } */
+#player1Div, #player2Div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  /* background-color: #eeeeee; */
+  /* border: 1px solid black; */
+  border-radius: 5px;
+}
+#player1Table, #player2Table {
+  width: 200px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+
+}
+
+   .gameBox {
+    width: 175px;
+    height: 150px;
+    font-size: 60px;
+    text-align: center;
+    background-color: #eeeeee;
+    border: 2px solid black;
+  }

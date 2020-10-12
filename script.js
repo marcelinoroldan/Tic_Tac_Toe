@@ -1,3 +1,4 @@
+
 console.log("JS script working!");
 
 // *** counter to see how many numbers in a combo a player matchs for a win
@@ -32,6 +33,18 @@ const getPlayerOWinsDisplay = document.querySelector('.playerO');
 
 const getNewGameButton = document.querySelector('.gameRestartButton');
 
+const getPlayer1StatElement = document.querySelector('#player1StatElement');
+const getPlayer2StatElement = document.querySelector('#player2StatElement');
+
+const getP1WinHolder = document.querySelector('#p1Win');
+const getP1TieHolder = document.querySelector('#p1Tie');
+const getP1LossHolder = document.querySelector('#p1Loss');
+
+const getP2WinHolder = document.querySelector('#p2Win');
+const getP2TieHolder = document.querySelector('#p2Tie');
+const getP2LossHolder = document.querySelector('#p2Loss');
+
+
 getNewGameButton.disabled = true;
 
 
@@ -43,6 +56,18 @@ function removeListeners() {
     boxStyleDivs.forEach(box => {
         box.removeEventListener('click', boxCallBack)
     })
+}
+
+function updateScoreBoard() {
+
+  getP1WinHolder.innerHTML = playerXWins
+  getP1TieHolder.innerHTML = playerTies
+  getP1LossHolder.innerHTML = playerOWins
+
+  getP2WinHolder.innerHTML = playerOWins
+  getP2TieHolder.innerHTML = playerTies
+  getP2LossHolder.innerHTML = playerXWins
+  
 }
 
 //  *** Game reinitializer for start of a new game
@@ -88,13 +113,23 @@ function startNewGameAndPlayers() {
      boardUnlock = 0;
      playerXWins = 0;
      playerOWins = 0;
-     getPlayer1Label.innerHTML = 'Player1'
-     getPlayer2Label.innerHTML = 'Player2'
+     getPlayer1Label.innerHTML = "";
+     getPlayer2Label.innerHTML = "";
+     getPlayer1Label.hidden = false;
+     getPlayer2Label.hidden = false;
      getPlayer1Input.hidden = false;
      getPlayer1Info.hidden = false;
      getPlayer2Input.hidden = false;
      getPlayer2Info.hidden = false;
      getNewGameButton.disabled = true;
+     getP1WinHolder.innerHTML = 0
+     getP1TieHolder.innerHTML = 0
+     getP1LossHolder.innerHTML = 0
+     getP2WinHolder.innerHTML = 0
+     getP2TieHolder.innerHTML = 0
+     getP2LossHolder.innerHTML = 0
+     getPlayer1StatElement.innerHTML = "Player1"
+     getPlayer2StatElement.innerHTML = "Player2"
      getBox0.innerHTML = "";
      getBox1.innerHTML = "";
      getBox2.innerHTML = "";
@@ -130,6 +165,7 @@ getNewGameButton.addEventListener('click', startNewGame);
         if (totalSelectionsMade === 9 && gameWinnerTie === "") {
             gameWinnerTie = 'The game has eneded in a TIE!';
             playerTies++
+            updateScoreBoard()
             // getPlayerXWinsDisplay.innerHTML = `Number of wins for Player X = ${playerXWins}`;
             // getPlayerOWinsDisplay.innerHTML = `Number of wins for Player O = ${playerOWins}`;
             removeListeners()
@@ -140,6 +176,7 @@ getNewGameButton.addEventListener('click', startNewGame);
             gameStatus.innerHTML = gameWinnerTie;
             // getPlayerXWinsDisplay.innerHTML = '1';
             // getPlayerOWinsDisplay.innerHTML = (`Number of wins for Player O = ${playerOWins}`);
+            updateScoreBoard()
             removeListeners()
 
         }else if (currentPlayer == player1Name) {
@@ -402,7 +439,9 @@ function playerListeners() {
     getPlayer1Info.value = "";
     getPlayer1Input.hidden = true;
     getPlayer1Info.hidden = true;
-    getPlayer1Label.innerHTML = `Welcome to the game ${player1Name}`
+    getPlayer1Label.hidden = true;
+    // getPlayer1Label.innerHTML = `Welcome to the game ${player1Name}`
+    getPlayer1StatElement.innerHTML = `Player1: ${player1Name}`
     boardUnlock++ 
     checkBoardUnlock();
     console.log(`Player1 is ${player1Name}`);
@@ -420,7 +459,9 @@ function playerListeners() {
     getPlayer2Info.value = "";
     getPlayer2Input.hidden = true;
     getPlayer2Info.hidden = true;
-    getPlayer2Label.innerHTML = `Welcome to the game ${player2Name}`
+    getPlayer2Label.hidden = true;
+    // getPlayer2Label.innerHTML = `Welcome to the game ${player2Name}`
+    getPlayer2StatElement.innerHTML = `Player2: ${player2Name}`
     boardUnlock++
     checkBoardUnlock();
     console.log(`Player2 is ${player2Name}`);
@@ -434,48 +475,5 @@ getPlayer1Input.addEventListener('click', playerListeners);
 getPlayer2Input.addEventListener('click', playerListeners); 
 };
 
-// **** New player listeners - previous is below
-   
-// function addPlayerNameListeners() {
-// getPlayer1Input.addEventListener('click', function(event) {
-//     event.preventDefault();
-//     // const getPlayer1Info = document.querySelector('#player1');
-//     console.log(`Player 1 value is ${getPlayer1Info.value}`)
-//     if (getPlayer1Info.value == "") {
-//         // alert('Player name needs to be input before you can add player');
-//         // console.log('Player name needs to be input before you can add player');
-//         getPlayer1Label.innerHTML = 'Player name needs to be input we start';
-//     }else {
-//     player1Name = getPlayer1Info.value;
-//     getPlayer1Info.value = "";
-//     getPlayer1Input.hidden = true;
-//     getPlayer1Info.hidden = true;
-//     getPlayer1Label.innerHTML = `Welcome to the game ${player1Name}`
-//     boardUnlock++ 
-//     checkBoardUnlock();
-//     console.log(`Player1 is ${player1Name}`);
-//     }
-//     });
-
-// getPlayer2Input.addEventListener('click', function(event) {
-//     event.preventDefault();
-//     // const getPlayer2Info = document.querySelector('#player2');
-//     console.log(`Player 2 value is ${getPlayer2Info.value}`)
-//     if (getPlayer2Info.value == "") {
-//         // alert('Player name needs to be input before you can add player');
-//         // console.log('Player name needs to be input before you can add player');
-//         getPlayer2Label.innerHTML = 'Player name needs to be input we start';
-//     }else {
-//     player2Name = getPlayer2Info.value;
-//     getPlayer2Info.value = "";
-//     getPlayer2Input.hidden = true;
-//     getPlayer2Info.hidden = true;
-//     getPlayer2Label.innerHTML = `Welcome to the game ${player2Name}`
-//     boardUnlock++
-//     checkBoardUnlock();
-//     console.log(`Player2 is ${player2Name}`);
-//     }
-//     });
-// };
 
 addPlayerNameListeners();

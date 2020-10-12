@@ -1,3 +1,5 @@
+
+<!-- NEW NEW NEW NEW  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,40 +10,81 @@
 </head>
 <body>
 
-        <h1 class="gameTitle">Tic Tac Toe</h1>
+    <!-- <div id="statsDiv"> -->
+        <div id="player1Div">
+        <h3 id="player1StatElement">Player1</h3>
+           <table id="player1Table">
+            <tr>
+                <td>Wins</td>
+                <td>Ties</td>
+                <td>Losses</td>
+            </tr>
+            <tr>
+                <td id="p1Win">0</td>
+                <td id="p1Tie">0</td>
+                <td id="p1Loss">0</td>
+            </tr>
 
-        <div class="grid gridStyle">
-            <div class="boxStyle" id="box0"></div>
-            <div class="boxStyle" id="box1"></div>
-            <div class="boxStyle" id="box2"></div>
-            <div class="boxStyle" id="box3"></div>
-            <div class="boxStyle" id="box4"></div>
-            <div class="boxStyle" id="box5"></div>
-            <div class="boxStyle" id="box6"></div>
-            <div class="boxStyle" id="box7"></div>
-            <div class="boxStyle" id="box8"></div>  
+        </table>
+    </br>
+       
+
+            <label id="player1Label"></label>
+            <input type="text" name="" id="player1" placeholder="ADD player name or emoji" />
+        
+            <input type="submit" id="player1Submit" value="Create Player"/> 
         </div>
+
+        <div id="grid gridStyle tableDiv ">
+            <h1 class="gameTitle">Tic Tac Toe</h1>
+
+            <table id="gameGrid" style="width:100%">
+                <tr class="gameRow">
+                    <td class="boxStyle gameBox" id="box0"></td>
+                    <td class="boxStyle gameBox"  id="box1"></td>
+                    <td class="boxStyle gameBox"  id="box2"></td>
+                </tr>
+                <tr class="gameRow">
+                  <td class="boxStyle gameBox"  id="box3"></td>
+                  <td class="boxStyle gameBox"  id="box4"></td>
+                  <td class="boxStyle gameBox"  id="box5"></td>
+                </tr>
+                <tr class="gameRow">
+                  <td class="boxStyle gameBox"  id="box6"></td>
+                  <td class="boxStyle gameBox"  id="box7"></td>
+                  <td class="boxStyle gameBox"  id="box8"></td>
+                </tr>
+              </table>
+            </br>
           <h2 class="gameStatus">Status of Game</h2>
         <button class="gameRestartButton">Start a new Game</button>
         <button class="gameRestartNewPlayersButton">Start a new Game and Players</button>
 
-        <label id="playerX">Number of wins for Player X</label>
-        <label id="playerO">Number of wins for Player O</label>
-    </br>
-</br>
+    </div>
 
-        <section>
-            <label id="player1Label">Player1</label>
-            <input type="text" name="" id="player1" placeholder="Name or emoji" />
-        
-            <input type="submit" id="player1Submit" value="Add"/> 
-        </br></br>
 
-            <label id="player2Label">Player2</label>
-            <input type="text" name="" id="player2" placeholder="Name or emoji" />
+        <div id="player2Div">
+            <h3 id="player2StatElement">Player2</h3>
+            <table id="player2Table">
+             <tr>
+                 <td>Wins</td>
+                 <td>Ties</td>
+                 <td>Losses</td>
+             </tr>
+             <tr>
+                 <td id="p2Win">0</td>
+                 <td id="p2Tie">0</td>
+                 <td id="p2Loss">0</td>
+             </tr>
+          </table>
+        </br>
+            <label id="player2Label"></label>
+            <input type="text" name="" id="player2" placeholder="ADD player name or emoji" />
         
-            <input type="submit" id="player2Submit" value="Add"/> 
-        </section> 
+            <input type="submit" id="player2Submit" value="Create Player"/> 
+        </div>    
+
+     <!-- </div> -->
 
    <script src="./script.js"></script> 
 </body>
