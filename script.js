@@ -121,7 +121,7 @@ function startNewGame() {
     if (lastWinner == "") {
     gameStatus.innerHTML = `New game - let's go!`;  
     }else {
-    gameStatus.innerHTML = `New game - Winner goes first - let's go!`;
+    gameStatus.innerHTML = `New game - last Winner goes first - let's go!`;
     }
 
     };
