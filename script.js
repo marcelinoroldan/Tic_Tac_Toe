@@ -6,7 +6,7 @@ let matchCounter = 0;
 
 const winningCombinations = [['0','1','2'],['3','4','5'],['6','7','8'],['0','3','6'],['1','4','7'],['2','5','8'],['0','4','8'],['2','4','6']];
 
-// Holds player selections as the game is played to validate against the combos above
+// *** Holds player selections as the game is played to validate against the combos above
 let choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
 let choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
 
@@ -23,6 +23,8 @@ let currentPlayer = null;
 let playerXWins = 0;
 let playerOWins = 0;
 let playerTies  = 0;
+
+let lastWinner = "";
 
 let boardUnlock = 0;
 
@@ -77,8 +79,25 @@ function startNewGame() {
      totalSelectionsMade = 0;
      matchCounter = 0;
      gameWinnerTie = "";
-     firstSelection = true;
-     currentPlayer = null;
+
+ //**** Remove if and uncomment 2 lines to revert *******************************
+
+    //  firstSelection = true;
+    //  currentPlayer = null;
+
+      if (lastWinner !== "") {  
+        if (lastWinner == player1Name) {
+            currentPlayer = player2Name
+        } else  {
+          currentPlayer = player1Name;
+        } 
+    }else {
+        currentPlayer = null;
+    }
+
+ //***********************************
+
+
     //  player1Name = "";
     //  player2Name = "";
     //  boardUnlock = 0;
@@ -98,8 +117,15 @@ function startNewGame() {
      removeListeners()
      addListeners()
     //  addPlayerNameListeners()
-    gameStatus.innerHTML = `New game - let's go!`;
-};
+
+    if (lastWinner == "") {
+    gameStatus.innerHTML = `New game - let's go!`;  
+    }else {
+    gameStatus.innerHTML = `New game - Winner goes first - let's go!`;
+    }
+
+    };
+
 function startNewGameAndPlayers() {
      choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
      choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
@@ -113,6 +139,7 @@ function startNewGameAndPlayers() {
      boardUnlock = 0;
      playerXWins = 0;
      playerOWins = 0;
+     lastWinner = "";
      getPlayer1Label.innerHTML = "";
      getPlayer2Label.innerHTML = "";
      getPlayer1Label.hidden = false;
@@ -178,6 +205,7 @@ getNewGameButton.addEventListener('click', startNewGame);
             // getPlayerOWinsDisplay.innerHTML = (`Number of wins for Player O = ${playerOWins}`);
             updateScoreBoard()
             removeListeners()
+            lastWinner = currentPlayer;
 
         }else if (currentPlayer == player1Name) {
             gameStatus.innerHTML = `Your turn ${player2Name}`;
@@ -433,7 +461,7 @@ function playerListeners() {
     if (getPlayer1Info.value == "") {
         // alert('Player name needs to be input before you can add player');
         // console.log('Player name needs to be input before you can add player');
-        getPlayer1Label.innerHTML = 'Player name needs to be input we start';
+        getPlayer1Label.innerHTML = 'Add name to create player';
     }else {
     player1Name = getPlayer1Info.value;
     getPlayer1Info.value = "";
@@ -453,7 +481,7 @@ function playerListeners() {
     if (getPlayer2Info.value == "") {
         // alert('Player name needs to be input before you can add player');
         // console.log('Player name needs to be input before you can add player');
-        getPlayer2Label.innerHTML = 'Player name needs to be input we start';
+        getPlayer2Label.innerHTML = 'Add name to create player';
     }else {
     player2Name = getPlayer2Info.value;
     getPlayer2Info.value = "";
