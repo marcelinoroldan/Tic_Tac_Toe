@@ -1,6 +1,4 @@
 
-console.log("JS script working!");
-
 // *** counter to see how many numbers in a combo a player matchs for a win
 let matchCounter = 0;
 
@@ -13,7 +11,7 @@ let choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
 // *** variable to be populated for winner information and if a tie
 let gameWinnerTie = "";
 
-// *** tracks if all board selections have been made - used to determine if a tie
+// *** Tracks if all board selections have been made - used to determine if a tie
 let totalSelectionsMade = 0;
 
 let firstSelection = true;
@@ -29,8 +27,8 @@ let lastWinner = "";
 let boardUnlock = 0;
 
 // *** display fields on game board for total player wins
-const getPlayerXWinsDisplay = document.querySelector('.playerX');
-const getPlayerOWinsDisplay = document.querySelector('.playerO');
+// const getPlayerXWinsDisplay = document.querySelector('.playerX');
+// const getPlayerOWinsDisplay = document.querySelector('.playerO');
 
 
 const getNewGameButton = document.querySelector('.gameRestartButton');
@@ -72,7 +70,7 @@ function updateScoreBoard() {
   
 }
 
-//  *** Game reinitializer for start of a new game
+//  *** Game reinitializer for start of a new game with same players
 function startNewGame() {
      choicesMadeByX = ['?','?','?','?','?','?','?','?','?'];
      choicesMadeByO = ['?','?','?','?','?','?','?','?','?'];
@@ -80,7 +78,7 @@ function startNewGame() {
      matchCounter = 0;
      gameWinnerTie = "";
 
- //**** Remove if and uncomment 2 lines to revert *******************************
+ //**** If there is a winner makes sure they start off next game.  If not, use Player1 as starter ****
 
     //  firstSelection = true;
     //  currentPlayer = null;
@@ -95,16 +93,8 @@ function startNewGame() {
         currentPlayer = null;
     }
 
- //***********************************
+ //**** If there is a winner makes sure they start off next game **** 
 
-
-    //  player1Name = "";
-    //  player2Name = "";
-    //  boardUnlock = 0;
-    //  getPlayer1Input.hidden = false;
-    //  getPlayer1Info.hidden = false;
-    //  getPlayer2Input.hidden = false;
-    //  getPlayer2Info.hidden = false;
      getBox0.innerHTML = "";
      getBox1.innerHTML = "";
      getBox2.innerHTML = "";
@@ -116,7 +106,6 @@ function startNewGame() {
      getBox8.innerHTML = "";
      removeListeners()
      addListeners()
-    //  addPlayerNameListeners()
 
     if (lastWinner == "") {
     gameStatus.innerHTML = `New game - let's go!`;  
@@ -140,6 +129,7 @@ function startNewGameAndPlayers() {
      playerXWins = 0;
      playerOWins = 0;
      lastWinner = "";
+     playerTies  = 0;
      getPlayer1Label.innerHTML = "";
      getPlayer2Label.innerHTML = "";
      getPlayer1Label.hidden = false;
@@ -167,7 +157,6 @@ function startNewGameAndPlayers() {
      getBox7.innerHTML = "";
      getBox8.innerHTML = "";
      removeListeners()
-    //  addListeners()
      addPlayerNameListeners()
     gameStatus.innerHTML = 'New game, add players to start!';
 };
@@ -183,8 +172,8 @@ getNewGameButton.addEventListener('click', startNewGame);
         }else {choicesMadeByO[selection] = selection; 
 
         }
-        console.log(`playerX array - ${choicesMadeByX}`)
-        console.log(`playerO array - ${choicesMadeByO}`)
+        // console.log(`playerX array - ${choicesMadeByX}`)
+        // console.log(`playerO array - ${choicesMadeByO}`)
     };
 
 
@@ -212,124 +201,77 @@ getNewGameButton.addEventListener('click', startNewGame);
         }else {
             gameStatus.innerHTML = `Your turn ${player1Name}`;
         }
-        console.log(`playerX wins = ${playerXWins}`);
-        console.log(`playerO wins = ${playerOWins}`);
-        console.log(`player Ties = ${playerTies}`);
+        // console.log(`playerX wins = ${playerXWins}`);
+        // console.log(`playerO wins = ${playerOWins}`);
+        // console.log(`player Ties = ${playerTies}`);
     };
 
 
+    // **** This function looks at each player after a selection is entered nd determines if either player
+    // **** matches the win criteria from the winning combinations array.  If a player matches on 3 numbers
+    // **** of a sub-array they win.  "matchCounter" being used to track matches.
+
     function validationProcess(player) {
-        console.log(`player is ${player}`)
+        // console.log(`player is ${player}`)
         if (player == player1Name) {
-        // console.log(`winning combos length = ${winningCombinations.length}`)
-        // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
-            // console.log('in first loop for X')
             for (j = 0; j < choicesMadeByX.length; j++) {
-                // console.log('in second loop loop')
-                // console.log(`i = ${i}`)
-                // console.log(`j = ${j}`)
-                // console.log(`winning combo value ${winningCombinations[i][0]}`)
-                // console.log(`winning combo value ${winningCombinations[i][1]}`)
-                // console.log(`winning combo value ${winningCombinations[i][2]}`)
-                // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                 if (winningCombinations[i][0] == choicesMadeByX[j]) {
-                    // console.log('in second loop passed first check')
-                    // console.log(`winning combo value ${winningCombinations[i][0]}`)
-                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if (winningCombinations[i][1] == choicesMadeByX[j]) {
-                    // console.log('in second loop passed second check')
-                    // console.log(`winning combo value ${winningCombinations[i][1]}`)
-                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if(winningCombinations[i][2] == choicesMadeByX[j]) {
-                    // console.log('in second loop passed third check')
-                    // console.log(`winning combo value ${winningCombinations[i][2]}`)
-                    // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                     matchCounter = matchCounter +1
                 }
 
             }
-            // console.log('going to check counter')
            if (matchCounter == 3) {
-            //    console.log('counter has 3')
                gameWinnerTie = `The game winner is ${currentPlayer}!!!!!`;
                playerXWins++ 
-            //    alert('we have a winner!')
                matchCounter = 0;
            } else {
-            //    console.log('counter has less than 3')
-            //    console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
                matchCounter = 0;
            }
         }
-        // console.log(`match counter for X = ${matchCounter}`)
     }
         if (player == player2Name) {
-        // console.log(`winning combos length = ${winningCombinations.length}`)
-        // console.log(`winning choices length = ${choicesMadeByX.length}`)
         for (let i = 0; i < winningCombinations.length; i++) {
-            // console.log('in first loop O')
             for (j = 0; j < choicesMadeByO.length; j++) {
-                // console.log('in second loop loop')
-                // console.log(`i = ${i}`)
-                // console.log(`j = ${j}`)
-                // console.log(`winning combo value ${winningCombinations[i][0]}`)
-                // console.log(`winning combo value ${winningCombinations[i][1]}`)
-                // console.log(`winning combo value ${winningCombinations[i][2]}`)
-                // console.log(`winning combo X has ${choicesMadeByX[j]}`)
                 if (winningCombinations[i][0] == choicesMadeByO[j]) {
-                    // console.log('in second loop passed first check')
-                    // console.log(`winning combo value ${winningCombinations[i][0]}`)
-                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if (winningCombinations[i][1] == choicesMadeByO[j]) {
-                    // console.log('in second loop passed second check')
-                    // console.log(`winning combo value ${winningCombinations[i][1]}`)
-                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
                 if(winningCombinations[i][2] == choicesMadeByO[j]) {
-                    // console.log('in second loop passed third check')
-                    // console.log(`winning combo value ${winningCombinations[i][2]}`)
-                    // console.log(`winning combo X has ${choicesMadeByO[j]}`)
                     matchCounter = matchCounter +1
                 }
 
             }
-            // console.log('going to check counter')
            if (matchCounter == 3) {
-            //    console.log('counter has 3')
                gameWinnerTie = `The game winner is ${currentPlayer}!!!!!`;
                playerOWins++
-            //    alert('we have a winner!')
                matchCounter = 0;
            } else {
-            //    console.log('counter has less than 3')
-            //    console.log(`match counter did not reach 3 - here is the value ${matchCounter}`)
                matchCounter = 0;
 
            }
         }
-        // console.log(`match counter for X = ${matchCounter}`)
         
     }
     }    
 
 
-// **** Add event listeners to all div boxes
+// **** Tracks selection each player is making and then calls functions to updates score
+// ****  and validates if there is a winner.
 
 function processSelection(boxNum) {
 
     if (firstSelection) { 
-    // currentPlayer = 'X';
     currentPlayer = player1Name;
     firstSelection = false;
-//   } else if (currentPlayer == 'X') {
   } else if (currentPlayer == player1Name) {
     currentPlayer = player2Name;
   } else {
@@ -373,6 +315,7 @@ if (boxNum == '8') {
 
 };
 
+// **** Gets all bxes in order to set event listeners for player selections
 
 const getBox0 = document.querySelector('#box0');
 const getBox1 = document.querySelector('#box1');
@@ -389,8 +332,6 @@ const getBox8 = document.querySelector('#box8');
 
 function boxCallBack() {
     let id = this.id.substring(3);
-    // console.log(id.substring(3));
-    // console.log(id).substring(3,1));
     processSelection(id);
 } 
 
@@ -400,9 +341,6 @@ function addListeners() {
 getBox0.addEventListener('click', boxCallBack,{once: true});
 
 getBox1.addEventListener('click', boxCallBack,{once: true});
-    //     event.preventDefault();
-    //     processSelection('1');
-    // },{once: true});
 
 getBox2.addEventListener('click', boxCallBack,{once: true});
 
@@ -420,7 +358,6 @@ getBox8.addEventListener('click', boxCallBack,{once: true});
 } 
 
 
-// addListeners();
 
 let player1Name = "";
 let player2Name = "";
@@ -434,6 +371,9 @@ const getPlayer2Info = document.querySelector('#player2');
 const getPlayer1Label = document.querySelector('#player1Label');
 const getPlayer2Label = document.querySelector('#player2Label');
 
+
+// **** Unlocks board for selection to be made after each player has been entered and enables "new game" button.
+
 function checkBoardUnlock() {
     if (boardUnlock == 2) {
         addListeners();
@@ -444,8 +384,8 @@ function checkBoardUnlock() {
 function processPlayerName(id, playerValue) {
     let playerId = id
     let idValue  = playerValue
-    console.log(`Player ID is ${playerId}`)
-    console.log(`Player Value is ${idValue}`)
+    // console.log(`Player ID is ${playerId}`)
+    // console.log(`Player Value is ${idValue}`)
 }
 
 // **** New player listeners
@@ -453,11 +393,11 @@ function processPlayerName(id, playerValue) {
 function playerListeners() {
 
     let id = this.id
-    console.log(`player id is ${id}`)
+    // console.log(`player id is ${id}`)
 
     if (id == 'player1Submit') {
     // const getPlayer1Info = document.querySelector('#player1');
-    console.log(`Player 1 value is ${getPlayer1Info.value}`)
+    // console.log(`Player 1 value is ${getPlayer1Info.value}`)
     if (getPlayer1Info.value == "") {
         // alert('Player name needs to be input before you can add player');
         // console.log('Player name needs to be input before you can add player');
@@ -472,12 +412,12 @@ function playerListeners() {
     getPlayer1StatElement.innerHTML = `Player1: ${player1Name}`
     boardUnlock++ 
     checkBoardUnlock();
-    console.log(`Player1 is ${player1Name}`);
+    // console.log(`Player1 is ${player1Name}`);
         }}
     
     if (id == 'player2Submit') { 
     // const getPlayer2Info = document.querySelector('#player2');
-    console.log(`Player 2 value is ${getPlayer2Info.value}`)
+    // console.log(`Player 2 value is ${getPlayer2Info.value}`)
     if (getPlayer2Info.value == "") {
         // alert('Player name needs to be input before you can add player');
         // console.log('Player name needs to be input before you can add player');
@@ -492,10 +432,10 @@ function playerListeners() {
     getPlayer2StatElement.innerHTML = `Player2: ${player2Name}`
     boardUnlock++
     checkBoardUnlock();
-    console.log(`Player2 is ${player2Name}`);
+    // console.log(`Player2 is ${player2Name}`);
     }
     };
-    console.log(`unlock board count is ${boardUnlock}`);
+    // console.log(`unlock board count is ${boardUnlock}`);
 };
 
 function addPlayerNameListeners() {

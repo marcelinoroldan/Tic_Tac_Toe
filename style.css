@@ -4,8 +4,10 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(182, 172, 175);
-    /* background-image: url('https://i.imgur.com/xtS1LOi.jpg'); */
+    background-color: rgb(184, 174, 184);
+    /* background-image: url('https://wallpaperaccess.com/full/2078959.jpg'); */
+    /* background-size: cover; */
+    ;
     
 }
 
@@ -63,18 +65,11 @@ h3 {
     border-radius: 5px;
 
 }
-/* .grid {
-    border: 5px solid black;
-  } */
 
   .gameGrid {
     width: 700px;
     border: 2px solid black;
   }
-
-/* #statsDiv {
-  width: 650px;
-} */
 
 #player1Div, #player2Div {
   display: flex;
@@ -85,9 +80,7 @@ h3 {
 }
 #player1Table, #player2Table {
   width: 200px;
-  /* background-color: rgb(209, 242, 235); */
   background-color: rgb(228, 216, 233);
-  /* background-color: white; */
   border: 2px solid black;
   border-radius: 8px;
 
@@ -103,6 +96,6 @@ h3 {
     font-size: 60px;
     text-align: center;
     background-color: #eeeeee;
-    /* background-color: rgb(209, 242, 235); */
     border: 2px solid black;
+    font-family: 'Lobster', cursive;
   }
