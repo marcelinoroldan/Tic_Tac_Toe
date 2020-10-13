@@ -16,6 +16,11 @@ A nice parameter I came across when setting event listeners so that they only tr
 
 A good learning experience was the setting and removing of event listeners thoughout the  game. 
 
+Items to work on:
+1.) Additional validation when adding users.  Currently a space will be accepted, but does not render visible on the board.
+
+2.) Possibly limit characters in a name or stop gameboard box from expanding to fit the name in the box. This distorts the gameboard.
+
 
 *******************************
 MVP for new product
