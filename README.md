@@ -6,10 +6,15 @@ Technologies used for project:
 HTML
 CSS 
 Javascript
+DOM Selectors
+Event Listeners
+Event Handler functions
 
 Most difficult logic was probably the winner for this project.  I used an array of winning combinations and had 2 other player arrays that represented player selections based on squares selected in the tic tac toe board.  Each time a player made a selection a nested for loop would look at the possible winning combinations and check each player's array of selections for a match on those winning combination.
 
 A nice parameter I came across when setting event listeners so that they only trigger once was the "{once: true}".  This allowed an event listener to be triggered only once after set so that is did not need to be removed later in the logic.
+
+A good learning experience was the setting and removing of event listeners thoughout the  game. 
 
 
 *******************************
